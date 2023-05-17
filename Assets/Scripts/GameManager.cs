@@ -48,5 +48,8 @@ public class GameManager : MonoBehaviour {
     public void FruitCollected () {
         fruitCount++;
         UIManager.instance.UpdateFruitCount();
+        if(fruitCount >= Fruit.totalGameObjectAmount) {
+            SetState(GameState.Win);
+        }
     }
 }
