@@ -12,11 +12,11 @@ public enum GameState {
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
 
-    public event Action OnGameLoad;
+    public event Action OnGameStart;
     public event Action OnGameWon;
     public event Action OnGameLose;
 
-    private GameState state;
+    public GameState state;
     public uint fruitCount;
 
     void Awake () {
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
     void UpdateState() {
         switch (state) {
             case GameState.Game :
-                OnGameLoad?.Invoke();
+                OnGameStart?.Invoke();
                 break;
             case GameState.Win :
                 OnGameWon?.Invoke();
@@ -43,6 +43,10 @@ public class GameManager : MonoBehaviour {
             default :
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
+    }
+
+    void Update () {
+
     }
 
     public void FruitCollected () {
