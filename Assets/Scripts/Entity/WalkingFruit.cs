@@ -15,5 +15,8 @@ public class WalkingFruit : MonoBehaviour {
         } else {
             animator.SetBool("isWalking", false);
         }
+        if(Input.GetKey("k")) {
+            Destroy(gameObject);
+        }
     }
 }
