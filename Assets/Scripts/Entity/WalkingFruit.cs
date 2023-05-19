@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WalkingFruit : MonoBehaviour {
-    private Animation anim;
+    private Animator animator;
 
     void Start() {
-        // anim = gameObject.GetComponent<Animation>();
-        // anim.Play("Walk");
+        animator = gameObject.GetComponent<Animator>();
+        // animator.Play("Walk");
     }
     void Update() {
-        
+        if(Input.GetKey("m")) {
+            animator.SetBool("isWalking", true);
+        } else {
+            animator.SetBool("isWalking", false);
+        }
     }
 }
