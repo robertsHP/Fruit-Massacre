@@ -51,9 +51,11 @@ public class PlayerController : MonoBehaviour {
         if(collision.collider.CompareTag("Enemy")) {
             GameManager.instance.SetState(GameState.Lose);
         }
+        Debug.Log("isGrounded = True");
         isGrounded = true;
     }
     void OnCollisionExit (Collision collision) {
+        Debug.Log("isGrounded = False");
         isGrounded = false;
     }
 }
