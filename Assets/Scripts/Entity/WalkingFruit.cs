@@ -3,20 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WalkingFruit : MonoBehaviour {
+    public static uint totalCount;
+    public static uint currentCount = 0;
+
+    public GameObject bloodParticle;
     private Animator animator;
 
+    void Awake () {
+        totalCount++;
+    }
     void Start() {
         animator = gameObject.GetComponent<Animator>();
-        // animator.Play("Walk");
     }
     void Update() {
-        if(Input.GetKey("m")) {
-            animator.SetBool("isWalking", true);
-        } else {
-            animator.SetBool("isWalking", false);
+        if(GameManager.instance.CurrentState == GameState.Game) {
+            animator.SetBool("isWalking", Input.GetKey("m"));
+            if(Input.GetKey("k")) {
+                Destroy(gameObject);
+            }
         }
-        if(Input.GetKey("k")) {
+    }
+    void OnTriggerEnter (Collider other) {
+        if(other.CompareTag("Player")) {
+            OnFruitCollected();
+            Instantiate(bloodParticle, transform.position + new Vector3(0, 2, 0), transform.rotation);
             Destroy(gameObject);
+        }
+    }
+    void OnFruitCollected () {
+        currentCount++;
+        UIManager.instance.UpdateFruitCount();
+        if(currentCount >= totalCount) {
+            GameManager.instance.CurrentState = GameState.Win;
         }
     }
 }

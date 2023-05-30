@@ -16,7 +16,7 @@ public class FallDetectionBox : MonoBehaviour {
     }
     void OnTriggerEnter (Collider other) {
         if(other.CompareTag("Player")) {
-            GameManager.instance.SetState(GameState.Lose);
+            GameManager.instance.CurrentState = GameState.Lose;
         }
     }
 }

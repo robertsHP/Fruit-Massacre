@@ -8,10 +8,9 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour {
     public static UIManager instance;
 
-    [SerializeField] public RectTransform endConditionPanel;
-    [SerializeField] public TMPro.TextMeshProUGUI endMessage;
-
-    [SerializeField] public TMPro.TextMeshProUGUI fruitCount;
+    [SerializeField] private RectTransform loseConditionPanel;
+    [SerializeField] private RectTransform winConditionPanel;
+    [SerializeField] private TMPro.TextMeshProUGUI fruitCount;
 
     void Awake () {
         if(instance == null) instance = this;
@@ -20,7 +19,8 @@ public class UIManager : MonoBehaviour {
         GameManager.instance.OnGameWon += OnGameWon;
         GameManager.instance.OnGameLose += OnGameLose;
 
-        endConditionPanel.gameObject.SetActive(false);
+        winConditionPanel.gameObject.SetActive(false);
+        loseConditionPanel.gameObject.SetActive(false);
         UpdateFruitCount();
     }
     void OnDestroy () {
@@ -29,17 +29,14 @@ public class UIManager : MonoBehaviour {
     }
 
     void OnGameWon() {
-        endConditionPanel.gameObject.SetActive(true);
-        endMessage.text = "You win!";
+        winConditionPanel.gameObject.SetActive(true);
     }
     void OnGameLose() {
-        endConditionPanel.gameObject.SetActive(true);
-        endMessage.text = "You lose!";
+        loseConditionPanel.gameObject.SetActive(true);
     }
 
     public void UpdateFruitCount () {
-        uint count = GameManager.instance.fruitCount;
-        fruitCount.text = count+"/"+Fruit.totalGameObjectAmount;
+        fruitCount.text = "Fruit murdered: "+WalkingFruit.currentCount+" out of "+WalkingFruit.totalCount;
     }
 
     void Update() {

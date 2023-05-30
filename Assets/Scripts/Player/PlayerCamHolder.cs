@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCamera : MonoBehaviour {
+public class PlayerCamHolder : MonoBehaviour {
     public Transform playerBody;
     public Camera cam;
 
@@ -23,12 +23,29 @@ public class PlayerCamera : MonoBehaviour {
         Cursor.visible = false;
         startFOV = cam.fieldOfView;
         endFOV = cam.fieldOfView + breatheEffectMax;
+
+        GameManager.instance.OnGameWon += OnGameWon;
+        GameManager.instance.OnGameLose += OnGameLose;
+    }
+    void OnDestroy () {
+        GameManager.instance.OnGameWon -= OnGameWon;
+        GameManager.instance.OnGameLose -= OnGameLose;
+    }
+    void OnGameWon() {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    void OnGameLose () {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     // Update is called once per frame
     void Update() {
-        MouseLook();
-        CamBreathe();
+        if(GameManager.instance.CurrentState == GameState.Game) {
+            MouseLook();
+            CamBreathe();
+        }
     }
     private void MouseLook () {
         float mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity * Time.deltaTime;

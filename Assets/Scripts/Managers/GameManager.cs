@@ -16,8 +16,15 @@ public class GameManager : MonoBehaviour {
     public event Action OnGameWon;
     public event Action OnGameLose;
 
-    public GameState state;
-    public uint fruitCount;
+    private GameState state;
+    public GameState CurrentState {
+        get => state;
+        set {
+            if (value != state) {
+                SetState(value);
+            }
+        }
+    }
 
     void Awake () {
         if(instance == null) instance = this;
@@ -25,11 +32,8 @@ public class GameManager : MonoBehaviour {
     void Start() {
         SetState(GameState.Game);
     }
-    public void SetState (GameState newState) {
+    private void SetState (GameState newState) {
         state = newState;
-        UpdateState();
-    }
-    void UpdateState() {
         switch (state) {
             case GameState.Game :
                 OnGameStart?.Invoke();
@@ -47,13 +51,5 @@ public class GameManager : MonoBehaviour {
 
     void Update () {
 
-    }
-
-    public void FruitCollected () {
-        fruitCount++;
-        UIManager.instance.UpdateFruitCount();
-        if(fruitCount >= Fruit.totalGameObjectAmount) {
-            SetState(GameState.Win);
-        }
     }
 }

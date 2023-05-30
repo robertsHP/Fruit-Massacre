@@ -15,4 +15,12 @@ public class MenuManager : MonoBehaviour {
         Debug.Log(nameof(Quit));
         Application.Quit();
     }
+    public void TryAgain () {
+        Debug.Log(nameof(TryAgain));
+        SceneManager.LoadScene(1);
+    }
+    public void QuitLoseScreen () {
+        Debug.Log(nameof(Quit));
+        SceneManager.LoadScene(0);
+    }
 }
