@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WalkingFruit : MonoBehaviour {
+    private static bool objectSpawnDone = false;
     public static uint totalCount;
-    public static uint currentCount = 0;
+    public static uint killCount = 0;
 
     public GameObject bloodParticle;
     private Animator animator;
 
     void Awake () {
-        totalCount++;
+        if(!objectSpawnDone) {
+            totalCount++;
+        }
     }
     void Start() {
+        //crappy but whatever
+        killCount = 0;
+        objectSpawnDone = true;
+        
         animator = gameObject.GetComponent<Animator>();
     }
     void Update() {
@@ -25,15 +32,15 @@ public class WalkingFruit : MonoBehaviour {
     }
     void OnTriggerEnter (Collider other) {
         if(other.CompareTag("Player")) {
-            OnFruitCollected();
+            OnFruitKilled();
             Instantiate(bloodParticle, transform.position + new Vector3(0, 2, 0), transform.rotation);
             Destroy(gameObject);
         }
     }
-    void OnFruitCollected () {
-        currentCount++;
+    void OnFruitKilled () {
+        killCount++;
         UIManager.instance.UpdateFruitCount();
-        if(currentCount >= totalCount) {
+        if(killCount >= totalCount) {
             GameManager.instance.CurrentState = GameState.Win;
         }
     }
