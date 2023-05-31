@@ -6,12 +6,12 @@ using UnityEngine.AI;
 
 public class MovementAI : MonoBehaviour {
     public WalkPoint Patrol (NavMeshAgent agent, WalkPoint currentPoint) {
-        if(GameManager.instance.WalkPoints.Any()) {
+        if(WalkPoint.points.Any()) {
             //Follow points
             if(currentPoint == null) {
-                int walkPointAmount = GameManager.instance.WalkPoints.Count;
+                int walkPointAmount = WalkPoint.points.Count;
                 int walkPointIndex = (int) Random.Range(0, walkPointAmount);
-                currentPoint = GameManager.instance.WalkPoints.ElementAt(walkPointIndex);
+                currentPoint = WalkPoint.points.ElementAt(walkPointIndex);
             }
             MoveTo(agent, currentPoint.transform);
             if(IfDestinationReached(agent)) {

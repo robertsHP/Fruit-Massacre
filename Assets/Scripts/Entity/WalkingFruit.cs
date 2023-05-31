@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class WalkingFruit : MonoBehaviour {
+    public static uint totalFruitCount;
+    public static uint fruitKillCount;
+
     public GameObject bloodParticle;
     private Animator animator;
 
@@ -13,12 +16,11 @@ public class WalkingFruit : MonoBehaviour {
     private WalkPoint currentWalkPoint;
 
     void Awake () {
-
+        Debug.Log("TOTALFRUITCOUNT");
+        totalFruitCount++;
     }
     void Start() {
-        GameManager.instance.TotalFruitCount++;
         animator = gameObject.GetComponent<Animator>();
-
         animator.SetBool("isWalking", true);
     }
     void Update() {
@@ -41,9 +43,9 @@ public class WalkingFruit : MonoBehaviour {
         }
     }
     void OnFruitKilled () {
-        GameManager.instance.FruitKillCount++;
+        fruitKillCount++;
         UIManager.instance.UpdateFruitCount();
-        if(GameManager.instance.FruitKillCount >= GameManager.instance.TotalFruitCount) {
+        if(fruitKillCount >= totalFruitCount) {
             GameManager.instance.CurrentState = GameState.Win;
         }
     }

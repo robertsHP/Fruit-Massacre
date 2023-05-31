@@ -28,20 +28,21 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private List<WalkPoint> _walkPoints = new List<WalkPoint>();
-    private List<StalkerPoint> _stalkerPoints = new List<StalkerPoint>();
-
-    public uint TotalFruitCount {get; set;}
-    public uint FruitKillCount {get; set;}
-    public List<WalkPoint> WalkPoints {get {return _walkPoints;}}
-    public List<StalkerPoint> StalkerPoints {get {return _stalkerPoints;}}
-
     void Awake () {
         if(instance == null) instance = this;
-        SetState(GameState.Game);
     }
     void Start() {
+        Debug.Log("Start");
+        SetState(GameState.Game);
+    }
+    void OnDestroy () {
+        Debug.Log("Destroy");
 
+        WalkingFruit.fruitKillCount = 0;
+        WalkingFruit.totalFruitCount = 0;
+        
+        WalkPoint.points.Clear();
+        StalkerPoint.points.Clear();
     }
     private void SetState (GameState newState) {
         state = newState;
@@ -60,11 +61,9 @@ public class GameManager : MonoBehaviour {
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
     }
+
     void OnGameStart () {
-        TotalFruitCount = 0;
-        FruitKillCount = 0;
-        WalkPoints.Clear();
-        StalkerPoints.Clear();
+        UIManager.instance.UpdateFruitCount();
     }
 
     void Update () {

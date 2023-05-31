@@ -37,9 +37,9 @@ public class Stalker : MonoBehaviour {
         if(occupiedPoint != null)
             occupiedPoint.UnOccupy();
 
-        int stalkerPointCount= GameManager.instance.StalkerPoints.Count;
+        int stalkerPointCount= StalkerPoint.points.Count;
         int stalkerPointIndex = (int) Random.Range(0, stalkerPointCount);
-        occupiedPoint = GameManager.instance.StalkerPoints.ElementAt(stalkerPointIndex);
+        occupiedPoint = StalkerPoint.points.ElementAt(stalkerPointIndex);
 
         occupiedPoint.Occupy(this);
         yield return new WaitForSeconds(5);
@@ -97,11 +97,11 @@ public class Stalker : MonoBehaviour {
     IEnumerator StareTimerCoroutine () {
         // gameObject.GetComponent<AudioSource>().Play();
 
-        Debug.Log("STARE TIMER BEGIN");
+        // Debug.Log("STARE TIMER BEGIN");
 
         yield return new WaitForSeconds(1);
 
-        Debug.Log("KILL PLAYER");
+        // Debug.Log("KILL PLAYER");
         GameManager.instance.CurrentState = GameState.Lose;
     }
 }

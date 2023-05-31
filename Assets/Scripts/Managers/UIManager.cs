@@ -21,7 +21,6 @@ public class UIManager : MonoBehaviour {
 
         winConditionPanel.gameObject.SetActive(false);
         loseConditionPanel.gameObject.SetActive(false);
-        UpdateFruitCount();
     }
     void OnDestroy () {
         GameManager.instance.OnGameWon -= OnGameWon;
@@ -36,8 +35,8 @@ public class UIManager : MonoBehaviour {
     }
 
     public void UpdateFruitCount () {
-        uint killCount = GameManager.instance.FruitKillCount;
-        uint totalCount = GameManager.instance.TotalFruitCount;
+        uint killCount = WalkingFruit.fruitKillCount;
+        uint totalCount = WalkingFruit.totalFruitCount;
 
         fruitCount.text = "Fruit murdered: "+killCount+" out of "+totalCount;
     }
