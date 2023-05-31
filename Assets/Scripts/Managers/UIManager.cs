@@ -36,7 +36,10 @@ public class UIManager : MonoBehaviour {
     }
 
     public void UpdateFruitCount () {
-        fruitCount.text = "Fruit murdered: "+WalkingFruit.killCount+" out of "+WalkingFruit.totalCount;
+        uint killCount = GameManager.instance.FruitKillCount;
+        uint totalCount = GameManager.instance.TotalFruitCount;
+
+        fruitCount.text = "Fruit murdered: "+killCount+" out of "+totalCount;
     }
 
     void Update() {

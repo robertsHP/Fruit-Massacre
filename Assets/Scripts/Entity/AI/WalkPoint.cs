@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WalkPoint : MonoBehaviour {
-    public static List<Transform> points = new List<Transform>();
     private Renderer rend;
     private Light pointLight;
 
     void Awake () {
-        points.Add(transform);
         rend = GetComponent<Renderer>();
         pointLight = GetComponent<Light>();
+    }
+    void Start () {
+        GameManager.instance.WalkPoints.Add(this);
     }
     void Update () {
         rend.enabled = GameManager.instance.debugOn;

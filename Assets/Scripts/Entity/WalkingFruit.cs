@@ -1,33 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WalkingFruit : MonoBehaviour {
-    private static bool objectSpawnDone = false;
-    public static uint totalCount;
-    public static uint killCount = 0;
-
     public GameObject bloodParticle;
     private Animator animator;
 
+    public NavMeshAgent agent;
+    public MovementAI movementAI;
+
+    private WalkPoint currentWalkPoint;
+
     void Awake () {
-        if(!objectSpawnDone) {
-            totalCount++;
-        }
+
     }
     void Start() {
-        //crappy but whatever
-        killCount = 0;
-        objectSpawnDone = true;
-
+        GameManager.instance.TotalFruitCount++;
         animator = gameObject.GetComponent<Animator>();
+
+        animator.SetBool("isWalking", true);
     }
     void Update() {
         if(GameManager.instance.CurrentState == GameState.Game) {
-            animator.SetBool("isWalking", Input.GetKey("m"));
-            if(Input.GetKey("k")) {
-                OnFruitKilled();
-            }
+            currentWalkPoint = movementAI.Patrol(agent, currentWalkPoint);
+
+            // animator.SetBool("isWalking", true);
+
+            // animator.SetBool("isWalking", Input.GetKey("m"));
+            // if(Input.GetKey("k")) {
+            //     OnFruitKilled();
+            // }
         }
     }
     void OnTriggerEnter (Collider other) {
@@ -38,9 +41,9 @@ public class WalkingFruit : MonoBehaviour {
         }
     }
     void OnFruitKilled () {
-        killCount++;
+        GameManager.instance.FruitKillCount++;
         UIManager.instance.UpdateFruitCount();
-        if(killCount >= totalCount) {
+        if(GameManager.instance.FruitKillCount >= GameManager.instance.TotalFruitCount) {
             GameManager.instance.CurrentState = GameState.Win;
         }
     }

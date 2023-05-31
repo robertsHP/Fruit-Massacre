@@ -12,7 +12,7 @@ public enum GameState {
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
 
-    public event Action OnGameStart;
+    // public event Action OnGameStart;
     public event Action OnGameWon;
     public event Action OnGameLose;
 
@@ -28,17 +28,27 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private List<WalkPoint> _walkPoints = new List<WalkPoint>();
+    private List<StalkerPoint> _stalkerPoints = new List<StalkerPoint>();
+
+    public uint TotalFruitCount {get; set;}
+    public uint FruitKillCount {get; set;}
+    public List<WalkPoint> WalkPoints {get {return _walkPoints;}}
+    public List<StalkerPoint> StalkerPoints {get {return _stalkerPoints;}}
+
     void Awake () {
         if(instance == null) instance = this;
+        SetState(GameState.Game);
     }
     void Start() {
-        SetState(GameState.Game);
+
     }
     private void SetState (GameState newState) {
         state = newState;
         switch (state) {
             case GameState.Game :
-                OnGameStart?.Invoke();
+                // OnGameStart?.Invoke();
+                OnGameStart();
                 break;
             case GameState.Win :
                 OnGameWon?.Invoke();
@@ -49,6 +59,12 @@ public class GameManager : MonoBehaviour {
             default :
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
+    }
+    void OnGameStart () {
+        TotalFruitCount = 0;
+        FruitKillCount = 0;
+        WalkPoints.Clear();
+        StalkerPoints.Clear();
     }
 
     void Update () {

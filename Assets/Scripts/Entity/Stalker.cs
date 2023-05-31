@@ -24,11 +24,11 @@ public class Stalker : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if(!teleportOn)
-            StartCoroutine(TeleportCoroutine());
-    }
-    void FixedUpdate () {
-        StareTimer();
+        if(GameManager.instance.CurrentState == GameState.Game) {
+            if(!teleportOn)
+                StartCoroutine(TeleportCoroutine());
+            StareTimer();
+        }
     }
 
     IEnumerator TeleportCoroutine () {
@@ -36,10 +36,11 @@ public class Stalker : MonoBehaviour {
 
         if(occupiedPoint != null)
             occupiedPoint.UnOccupy();
-        // do {
-            int stalkerPointIndex = (int) Random.Range(0, StalkerPoint.points.Count);
-            occupiedPoint = StalkerPoint.points.ElementAt(stalkerPointIndex);
-        // } while(!occupiedPoint.Occupied());
+
+        int stalkerPointCount= GameManager.instance.StalkerPoints.Count;
+        int stalkerPointIndex = (int) Random.Range(0, stalkerPointCount);
+        occupiedPoint = GameManager.instance.StalkerPoints.ElementAt(stalkerPointIndex);
+
         occupiedPoint.Occupy(this);
         yield return new WaitForSeconds(5);
 
@@ -49,13 +50,13 @@ public class Stalker : MonoBehaviour {
     void StareTimer () {
         if(IsObjectFullyVisible() && IsObjectNotBlocked()) {
             if(!stareCoroutineOn) {
-                Debug.Log("!!Start stare coroutine");
+                // Debug.Log("!!Start stare coroutine");
                 stareCoroutine = StartCoroutine(StareTimerCoroutine());
                 stareCoroutineOn = true;
             }
         } else {
             if(stareCoroutineOn) {
-                Debug.Log("!!End stare coroutine");
+                // Debug.Log("!!End stare coroutine");
                 StopCoroutine(stareCoroutine);
                 stareCoroutineOn = false;
             }
@@ -96,11 +97,11 @@ public class Stalker : MonoBehaviour {
     IEnumerator StareTimerCoroutine () {
         // gameObject.GetComponent<AudioSource>().Play();
 
-        // Debug.Log("STARE TIMER BEGIN");
+        Debug.Log("STARE TIMER BEGIN");
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
 
-        // Debug.Log("KILL PLAYER");
+        Debug.Log("KILL PLAYER");
         GameManager.instance.CurrentState = GameState.Lose;
     }
 }

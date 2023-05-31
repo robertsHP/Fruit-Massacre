@@ -24,8 +24,9 @@ public class Ghost : MonoBehaviour {
     public NavMeshAgent agent;
     public Player player;
     public VisionCone visionCone;
+    public MovementAI movementAI;
 
-    private Transform nextPoint;
+    private WalkPoint currentWalkPoint;
 
     void Start() {
         CurrentState = GhostState.Patrol;
@@ -46,46 +47,17 @@ public class Ghost : MonoBehaviour {
         }
     }
     void PatrolState () {
-        // if(visionCone.GameObjectInView != null) {
-        //     CurrentState = GhostState.Chase;
-        // }
-        if(WalkPoint.points.Any()) {
-            //Follow points
-            if(nextPoint == null) {
-                int walkPointIndex = (int) Random.Range(0, WalkPoint.points.Count);
-                nextPoint = WalkPoint.points.ElementAt(walkPointIndex);
-            }
-            MoveTo(nextPoint);
-            if(IfDestinationReached()) {
-                nextPoint = null;
-            }
+        if(visionCone.GameObjectInView != null) {
+            CurrentState = GhostState.Chase;
+        } else {
+            currentWalkPoint = movementAI.Patrol(agent, currentWalkPoint);
         }
     }
     void ChaseState () {
         if(visionCone.GameObjectInView == null) {
             CurrentState = GhostState.Patrol;
         } else {
-            MoveTo(player.transform);
-        }
-    }
-    bool IfDestinationReached () {
-        if (!agent.pathPending) {
-            if (agent.remainingDistance <= agent.stoppingDistance) {
-                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    void MoveTo (Transform nextTransform) {
-        if(nextTransform != null) {
-            // The step size is equal to speed times frame time.
-            var step = agent.speed * Time.deltaTime;
-            // Rotate our transform a step closer to the target's.
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, nextTransform.rotation, step);
-            // Move to position
-            agent.SetDestination(nextTransform.position);
+            movementAI.MoveTo(agent, player.transform);
         }
     }
 }
