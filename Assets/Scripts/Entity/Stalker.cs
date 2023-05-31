@@ -22,15 +22,19 @@ public class Stalker : MonoBehaviour {
 
     }
     void FixedUpdate () {
-        CheckIfVisible();
+        StareTimer();
     }
 
-    void CheckIfVisible () {
+    void TeleportTimer () {
+        
+    }
+
+    void StareTimer () {
         //if(rend.isVisible) {
         if(IsObjectFullyVisible() && IsObjectNotBlocked()) {
             if(!stareCoroutineOn) {
                 Debug.Log("!!Start coroutine");
-                stareCoroutine = StartCoroutine(StareTimer());
+                stareCoroutine = StartCoroutine(StareTimerCoroutine());
                 stareCoroutineOn = true;
             }
         } else {
@@ -42,8 +46,6 @@ public class Stalker : MonoBehaviour {
         }
     }
 
-
-    ///TEMPORARY!!!!!!!!!!!!!!!!!!!!!!!!!!!
     bool IsObjectFullyVisible() {
         Camera mainCamera = camHolder.cam;
 
@@ -67,20 +69,22 @@ public class Stalker : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Linecast(camHolder.cam.transform.position, transform.position, out hit)) {
             if (hit.collider.gameObject == gameObject) {
-                // Debug.DrawRay(ray.origin, ray.direction * maxDistance, raycastColor);
+                if(GameManager.instance.debugOn) {
+                    Debug.DrawRay(ray.origin, ray.direction * maxDistance, raycastColor);
+                }
                 return true;
             }
         }
         return false;
     }
-    IEnumerator StareTimer () {
+    IEnumerator StareTimerCoroutine () {
         // gameObject.GetComponent<AudioSource>().Play();
 
-        Debug.Log("STARE TIMER BEGIN");
+        // Debug.Log("STARE TIMER BEGIN");
 
         yield return new WaitForSeconds(5);
 
-        Debug.Log("KILL PLAYER");
+        // Debug.Log("KILL PLAYER");
         GameManager.instance.CurrentState = GameState.Lose;
     }
 }

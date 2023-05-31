@@ -19,14 +19,14 @@ public class WalkingFruit : MonoBehaviour {
         //crappy but whatever
         killCount = 0;
         objectSpawnDone = true;
-        
+
         animator = gameObject.GetComponent<Animator>();
     }
     void Update() {
         if(GameManager.instance.CurrentState == GameState.Game) {
             animator.SetBool("isWalking", Input.GetKey("m"));
             if(Input.GetKey("k")) {
-                Destroy(gameObject);
+                OnFruitKilled();
             }
         }
     }

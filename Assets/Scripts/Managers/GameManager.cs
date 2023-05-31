@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
     public event Action OnGameWon;
     public event Action OnGameLose;
 
+    public bool debugOn = false;
+
     private GameState state;
     public GameState CurrentState {
         get => state;
