@@ -2560,7 +2560,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650695946}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4113,6 +4113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 966893523}
+  rend: {fileID: 650695949}
   speed: 5
   gravity: -9.81
   jumpHeight: 2
@@ -9415,8 +9416,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camHolder: {fileID: 2069729235}
   rend: {fileID: 1782036974}
-  maxDistance: 10
-  raycastColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1467219928
 GameObject:
   m_ObjectHideFlags: 0

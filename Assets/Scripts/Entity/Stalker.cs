@@ -1,45 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Stalker : MonoBehaviour {
     public PlayerCamHolder camHolder;
     public Renderer rend;
 
-    public float maxDistance = 10f;
-    public Color raycastColor = Color.red;
+    private float maxDistance = 10f;
+    private Color raycastColor = Color.red;
+
+    private StalkerPoint occupiedPoint;
 
     private bool stareCoroutineOn = false;
     private Coroutine stareCoroutine;
 
+    private bool teleportOn = false;
+
     // Start is called before the first frame update
     void Start() {
-        
+
     }
 
     // Update is called once per frame
     void Update() {
-
+        if(!teleportOn)
+            StartCoroutine(TeleportCoroutine());
     }
     void FixedUpdate () {
         StareTimer();
     }
 
-    void TeleportTimer () {
-        
+    IEnumerator TeleportCoroutine () {
+        teleportOn = true;
+
+        if(occupiedPoint != null)
+            occupiedPoint.UnOccupy();
+        // do {
+            int stalkerPointIndex = (int) Random.Range(0, StalkerPoint.points.Count);
+            occupiedPoint = StalkerPoint.points.ElementAt(stalkerPointIndex);
+        // } while(!occupiedPoint.Occupied());
+        occupiedPoint.Occupy(this);
+        yield return new WaitForSeconds(5);
+
+        teleportOn = false;
     }
 
     void StareTimer () {
-        //if(rend.isVisible) {
         if(IsObjectFullyVisible() && IsObjectNotBlocked()) {
             if(!stareCoroutineOn) {
-                Debug.Log("!!Start coroutine");
+                Debug.Log("!!Start stare coroutine");
                 stareCoroutine = StartCoroutine(StareTimerCoroutine());
                 stareCoroutineOn = true;
             }
         } else {
             if(stareCoroutineOn) {
-                Debug.Log("!!End coroutine");
+                Debug.Log("!!End stare coroutine");
                 StopCoroutine(stareCoroutine);
                 stareCoroutineOn = false;
             }

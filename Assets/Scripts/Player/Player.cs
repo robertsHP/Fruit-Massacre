@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     public CharacterController controller;
+    public Renderer rend;
 
     public float speed = 4f;
     public float gravity = -9.81f;
@@ -41,6 +42,8 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        rend.enabled = GameManager.instance.debugOn;
+
         if(GameManager.instance.CurrentState == GameState.Game) {
             CheckGrounded();
             MovementInput();

@@ -5,15 +5,15 @@ using UnityEngine;
 public class WalkPoint : MonoBehaviour {
     public static List<Transform> points = new List<Transform>();
     private Renderer rend;
-    private Light light;
+    private Light pointLight;
 
     void Awake () {
         points.Add(transform);
         rend = GetComponent<Renderer>();
-        light = GetComponent<Light>();
+        pointLight = GetComponent<Light>();
     }
     void Update () {
         rend.enabled = GameManager.instance.debugOn;
-        light.enabled = GameManager.instance.debugOn;
+        pointLight.enabled = GameManager.instance.debugOn;
     }
 }

@@ -52,7 +52,7 @@ public class Ghost : MonoBehaviour {
         if(WalkPoint.points.Any()) {
             //Follow points
             if(nextPoint == null) {
-                int walkPointIndex = (int) Random.Range(0, WalkPoint.points.Count - 1);
+                int walkPointIndex = (int) Random.Range(0, WalkPoint.points.Count);
                 nextPoint = WalkPoint.points.ElementAt(walkPointIndex);
             }
             MoveTo(nextPoint);
