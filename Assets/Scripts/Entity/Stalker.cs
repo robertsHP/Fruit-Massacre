@@ -4,8 +4,9 @@ using System.Linq;
 using UnityEngine;
 
 public class Stalker : MonoBehaviour {
-    public PlayerCamHolder camHolder;
-    public Renderer rend;
+    [SerializeField] private PlayerCamHolder camHolder;
+    [SerializeField] private Renderer visionCapsuleRenderer;
+    [SerializeField] private Animator animator;
 
     private float maxDistance = 10f;
     private Color raycastColor = Color.red;
@@ -19,7 +20,7 @@ public class Stalker : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-
+        
     }
 
     // Update is called once per frame
@@ -67,7 +68,7 @@ public class Stalker : MonoBehaviour {
         Camera mainCamera = camHolder.cam;
 
         // Get the viewport position of the target object's bounds
-        Vector3 targetViewportPos = mainCamera.WorldToViewportPoint(rend.bounds.center);
+        Vector3 targetViewportPos = mainCamera.WorldToViewportPoint(visionCapsuleRenderer.bounds.center);
 
         // Check if the target object's bounds are fully within the camera's viewport
         if (targetViewportPos.x >= 0f && targetViewportPos.x <= 1f &&
@@ -86,6 +87,7 @@ public class Stalker : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Linecast(camHolder.cam.transform.position, transform.position, out hit)) {
             if (hit.collider.gameObject == gameObject) {
+                //Draw ray for debugging purposes
                 if(GameManager.instance.debugOn) {
                     Debug.DrawRay(ray.origin, ray.direction * maxDistance, raycastColor);
                 }

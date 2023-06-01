@@ -7,20 +7,17 @@ public class WalkingFruit : MonoBehaviour {
     public static uint totalFruitCount;
     public static uint fruitKillCount;
 
-    public GameObject bloodParticle;
-    private Animator animator;
-
-    public NavMeshAgent agent;
-    public MovementAI movementAI;
+    [SerializeField] public GameObject bloodParticle;
+    [SerializeField] public Animator animator;
+    [SerializeField] public NavMeshAgent agent;
+    [SerializeField] public MovementAI movementAI;
 
     private WalkPoint currentWalkPoint;
 
     void Awake () {
-        Debug.Log("TOTALFRUITCOUNT");
         totalFruitCount++;
     }
     void Start() {
-        animator = gameObject.GetComponent<Animator>();
         animator.SetBool("isWalking", true);
     }
     void Update() {

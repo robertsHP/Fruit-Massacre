@@ -21,15 +21,21 @@ public class Ghost : MonoBehaviour {
         }
     }
 
-    public NavMeshAgent agent;
-    public Player player;
-    public VisionCone visionCone;
-    public MovementAI movementAI;
+    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Player player;
+    [SerializeField] private VisionCone visionCone;
+    [SerializeField] private MovementAI movementAI;
+    [SerializeField] private Animator animator;
+
+    [SerializeField] private float walkSpeed = 3;
+    [SerializeField] private float runSpeed = 5;
 
     private WalkPoint currentWalkPoint;
 
     void Start() {
         CurrentState = GhostState.Patrol;
+        agent.speed = walkSpeed;
+        animator.SetBool("SeePlayer", false);
     }
 
     // Update is called once per frame
@@ -48,6 +54,8 @@ public class Ghost : MonoBehaviour {
     }
     void PatrolState () {
         if(visionCone.GameObjectInView != null) {
+            animator.SetBool("SeePlayer", true);
+            agent.speed = runSpeed;
             CurrentState = GhostState.Chase;
         } else {
             currentWalkPoint = movementAI.Patrol(agent, currentWalkPoint);
@@ -55,6 +63,8 @@ public class Ghost : MonoBehaviour {
     }
     void ChaseState () {
         if(visionCone.GameObjectInView == null) {
+            animator.SetBool("SeePlayer", false);
+            agent.speed = walkSpeed;
             CurrentState = GhostState.Patrol;
         } else {
             movementAI.MoveTo(agent, player.transform);
