@@ -21,4 +21,11 @@ public class WalkPoint : MonoBehaviour {
         rend.enabled = GameManager.instance.debugOn;
         pointLight.enabled = GameManager.instance.debugOn;
     }
+    // public void SpawnGameObject (GameObject gObj) {
+    //     if(objectsToSpawn.Count != 0) {
+    //         int index = (int) Random.Range(0, objectsToSpawn.Count);
+    //         GameObject obj = objectsToSpawn.ElementAt(index);
+    //         Instantiate(obj, transform);
+    //     }
+    // }
 }
