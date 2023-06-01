@@ -6,13 +6,13 @@ using UnityEngine;
 public class WalkingFruitTitleScreen : MonoBehaviour {
     [SerializeField] private Animator animator;
     
-    private float speed = 0.06f; // Speed of movement
+    private float speed = 0.06f;
 
     private Transform startTransform;
     private Transform endTransform;
 
-    private float distance; // Distance between points
-    private float startTime; // Start time of interpolation
+    private float distance;
+    private float startTime; 
 
     void Start() {
         startTransform = transform;
@@ -23,7 +23,6 @@ public class WalkingFruitTitleScreen : MonoBehaviour {
         animator.SetBool("isWalking", true);
     }
 
-    // Update is called once per frame
     void Update() {
         if(endTransform != null) {
             float duration = distance / speed;

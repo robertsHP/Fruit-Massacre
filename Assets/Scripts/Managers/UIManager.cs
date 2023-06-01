@@ -12,6 +12,17 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private RectTransform winConditionPanel;
     [SerializeField] private TMPro.TextMeshProUGUI fruitCount;
 
+
+    public void TryAgain () {
+        Debug.Log(nameof(TryAgain));
+        SceneManager.LoadScene(1);
+    }
+    public void QuitLoseScreen () {
+        Debug.Log(nameof(QuitLoseScreen));
+        SceneManager.LoadScene(0);
+    }
+
+
     void Awake () {
         if(instance == null) instance = this;
     }

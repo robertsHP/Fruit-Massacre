@@ -5,9 +5,7 @@ using UnityEngine;
 public class DeletePoint : MonoBehaviour {
     public static List<DeletePoint> points = new List<DeletePoint>();
 
-    void Awake () {
-        // pointLight = GetComponent<Light>();
-
+    void Start () {
         points.Add(this);
     }
 
