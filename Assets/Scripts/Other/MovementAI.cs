@@ -40,11 +40,8 @@ public class MovementAI : MonoBehaviour {
     }
     public void MoveTo (NavMeshAgent agent, Transform tr) {
         if(tr != null) {
-            // The step size is equal to speed times frame time.
             var step = agent.speed * Time.deltaTime;
-            // Rotate our transform a step closer to the target's.
             transform.rotation = Quaternion.RotateTowards(transform.rotation, tr.rotation, step);
-            // Move to position
             agent.SetDestination(tr.position);
         }
     }
