@@ -71,15 +71,11 @@ public class Player : MonoBehaviour {
         controller.Move(move * speed * Time.deltaTime);
     }
     private void JumpInput () {
-        if(Input.GetButtonDown("Jump") && isGrounded) {
+        if(Input.GetKeyDown("space") && isGrounded) {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-    }
-
-    private void FixedUpdate () {
-
     }
     void OnTriggerEnter (Collider other) {
         if(other.CompareTag("Enemy")) {

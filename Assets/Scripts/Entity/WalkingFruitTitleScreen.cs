@@ -16,8 +16,8 @@ public class WalkingFruitTitleScreen : MonoBehaviour {
 
     void Start() {
         startTransform = transform;
-        if(DeletePoint.points.Count != 0) {
-            endTransform = DeletePoint.points.ElementAt(0).transform;
+        if(MenuDeletePoint.points.Count != 0) {
+            endTransform = MenuDeletePoint.points.ElementAt(0).transform;
             distance = Vector3.Distance(startTransform.position, endTransform.position);
         }
         animator.SetBool("isWalking", true);

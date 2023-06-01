@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
     void Awake () {
-        DeletePoint.points.Clear();
+        MenuDeletePoint.points.Clear();
     }
 
     public void Play () {
