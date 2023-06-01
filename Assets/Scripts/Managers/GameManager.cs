@@ -32,12 +32,9 @@ public class GameManager : MonoBehaviour {
         if(instance == null) instance = this;
     }
     void Start() {
-        Debug.Log("Start");
         SetState(GameState.Game);
     }
     void OnDestroy () {
-        Debug.Log("Destroy");
-
         WalkingFruit.fruitKillCount = 0;
         WalkingFruit.totalFruitCount = 0;
         

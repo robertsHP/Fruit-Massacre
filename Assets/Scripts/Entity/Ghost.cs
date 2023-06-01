@@ -50,6 +50,8 @@ public class Ghost : MonoBehaviour {
                     break;
                 default : break;
             }
+        } else {
+            movementAI.Idle(agent, currentWalkPoint);
         }
     }
     void PatrolState () {

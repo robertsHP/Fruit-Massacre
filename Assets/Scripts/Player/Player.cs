@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
     public CharacterController controller;
@@ -45,9 +46,15 @@ public class Player : MonoBehaviour {
         rend.enabled = GameManager.instance.debugOn;
 
         if(GameManager.instance.CurrentState == GameState.Game) {
+            // EscapeGameInput();
             CheckGrounded();
             MovementInput();
             JumpInput();
+        }
+    }
+    private void EscapeGameInput () {
+        if (Input.GetKey(KeyCode.Escape)) {
+            SceneManager.LoadScene(0);
         }
     }
     private void CheckGrounded () {

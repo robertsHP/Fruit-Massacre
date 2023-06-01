@@ -17,13 +17,13 @@ public class VisionCone : MonoBehaviour {
 
     void OnTriggerEnter (Collider col) {
         if(col.CompareTag(gameObjectTag)) {
-            Debug.Log("Enter Cone "+col.gameObject);
+            // Debug.Log("Enter Cone "+col.gameObject);
             GameObjectInView = col.gameObject;
         }
     }
     void OnTriggerExit (Collider col) {
         if(col.CompareTag(gameObjectTag)) {
-            Debug.Log("Exit Cone "+col.gameObject);
+            // Debug.Log("Exit Cone "+col.gameObject);
             GameObjectInView = null;
         }
     }

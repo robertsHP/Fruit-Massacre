@@ -40,16 +40,4 @@ public class UIManager : MonoBehaviour {
 
         fruitCount.text = "Fruit murdered: "+killCount+" out of "+totalCount;
     }
-
-    void Update() {
-        // if (Keyboard.current.escapeKey.wasReleasedThisFrame) {
-        //     LoadMenu();
-        // }
-    }
-    // void LoadMenu() {
-    //     if (isLoadingMenu) return;
-        
-    //     isLoadingMenu = true;
-    //     SceneManager.LoadScene(0);
-    // }
 }

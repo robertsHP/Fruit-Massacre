@@ -26,7 +26,7 @@ public class Stalker : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if(GameManager.instance.CurrentState == GameState.Game) {
-            if(!teleportOn)
+            if(!teleportOn) 
                 StartCoroutine(TeleportCoroutine());
             StareTimer();
         }
@@ -51,13 +51,13 @@ public class Stalker : MonoBehaviour {
     void StareTimer () {
         if(IsObjectFullyVisible() && IsObjectNotBlocked()) {
             if(!stareCoroutineOn) {
-                // Debug.Log("!!Start stare coroutine");
+                Debug.Log("!!Start stare coroutine");
                 stareCoroutine = StartCoroutine(StareTimerCoroutine());
                 stareCoroutineOn = true;
             }
         } else {
             if(stareCoroutineOn) {
-                // Debug.Log("!!End stare coroutine");
+                Debug.Log("!!End stare coroutine");
                 StopCoroutine(stareCoroutine);
                 stareCoroutineOn = false;
             }

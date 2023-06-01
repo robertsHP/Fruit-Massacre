@@ -12,13 +12,20 @@ public class MovementAI : MonoBehaviour {
                 int walkPointAmount = WalkPoint.points.Count;
                 int walkPointIndex = (int) Random.Range(0, walkPointAmount);
                 currentPoint = WalkPoint.points.ElementAt(walkPointIndex);
+                MoveTo(agent, currentPoint.transform);
             }
-            MoveTo(agent, currentPoint.transform);
             if(IfDestinationReached(agent)) {
                 currentPoint = null;
             }
         }
         return currentPoint;
+    }
+    public WalkPoint Idle (NavMeshAgent agent, WalkPoint currentWalkPoint) {
+        if (!agent.isStopped) {
+            agent.isStopped = true;
+            currentWalkPoint = null;
+        }
+        return currentWalkPoint;
     }
 
     bool IfDestinationReached (NavMeshAgent agent) {

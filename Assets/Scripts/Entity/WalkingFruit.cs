@@ -23,13 +23,8 @@ public class WalkingFruit : MonoBehaviour {
     void Update() {
         if(GameManager.instance.CurrentState == GameState.Game) {
             currentWalkPoint = movementAI.Patrol(agent, currentWalkPoint);
-
-            // animator.SetBool("isWalking", true);
-
-            // animator.SetBool("isWalking", Input.GetKey("m"));
-            // if(Input.GetKey("k")) {
-            //     OnFruitKilled();
-            // }
+        } else {
+            movementAI.Idle(agent, currentWalkPoint);
         }
     }
     void OnTriggerEnter (Collider other) {
