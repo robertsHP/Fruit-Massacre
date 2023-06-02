@@ -10,7 +10,7 @@ public enum GhostState {
     Chase
 }
 
-public class Ghost : MonoBehaviour {
+public class Ghost : Enemy {
     private GhostState state;
     public GhostState CurrentState {
         get => state;
@@ -22,10 +22,8 @@ public class Ghost : MonoBehaviour {
     }
 
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Player player;
     [SerializeField] private VisionCone visionCone;
     [SerializeField] private MovementAI movementAI;
-    [SerializeField] private Animator animator;
 
     [SerializeField] private float walkSpeed = 3;
     [SerializeField] private float runSpeed = 5;
@@ -33,6 +31,8 @@ public class Ghost : MonoBehaviour {
     private WalkPoint currentWalkPoint;
 
     void Start() {
+        GameManager.instance.enemies.Add(this);
+
         CurrentState = GhostState.Patrol;
         agent.speed = walkSpeed;
         animator.SetBool("SeePlayer", false);
@@ -69,7 +69,7 @@ public class Ghost : MonoBehaviour {
             agent.speed = walkSpeed;
             CurrentState = GhostState.Patrol;
         } else {
-            movementAI.MoveTo(agent, player.transform);
+            movementAI.MoveTo(agent, GameManager.instance.player.transform);
         }
     }
 }

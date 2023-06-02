@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour {
     public CharacterController controller;
     public Renderer rend;
+    public PlayerViewBounds viewBounds;
+    public PlayerCamHolder camHolder;
 
     public float speed = 4f;
     public float gravity = -9.81f;

@@ -5,16 +5,13 @@ using UnityEngine;
 
 public class MenuSpawnPoint : MonoBehaviour {
     [SerializeField] List<GameObject> objectsToSpawn;
-    [SerializeField] private bool continuousSpawning = false;
     [SerializeField] private uint spawnDelayInSeconds = 5;
 
     private bool objectSpawned = false;
 
     void Update () {
-        if(continuousSpawning) {
-            if(!objectSpawned) {
-                StartCoroutine(SpawnGameObjectCoroutine());
-            }
+        if(!objectSpawned) {
+            StartCoroutine(SpawnGameObjectCoroutine());
         }
     }
 

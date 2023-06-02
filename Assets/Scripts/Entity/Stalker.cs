@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Stalker : MonoBehaviour {
-    [SerializeField] private PlayerCamHolder camHolder;
+public class Stalker : Enemy {
     [SerializeField] private Renderer visionCapsuleRenderer;
-    [SerializeField] private Animator animator;
 
+    ////////////////////////////////////////////
     private float maxDistance = 10f;
     private Color raycastColor = Color.red;
+    ////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     private StalkerPoint occupiedPoint;
 
@@ -20,7 +20,7 @@ public class Stalker : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        
+        GameManager.instance.enemies.Add(this);
     }
 
     // Update is called once per frame
@@ -38,9 +38,11 @@ public class Stalker : MonoBehaviour {
         if(occupiedPoint != null)
             occupiedPoint.UnOccupy();
 
-        int stalkerPointCount= StalkerPoint.points.Count;
+        List<StalkerPoint> stalkerPoints = GameManager.instance.stalkerPoints;
+        int stalkerPointCount = stalkerPoints.Count;
         int stalkerPointIndex = (int) Random.Range(0, stalkerPointCount);
-        occupiedPoint = StalkerPoint.points.ElementAt(stalkerPointIndex);
+        
+        occupiedPoint = stalkerPoints.ElementAt(stalkerPointIndex);
 
         occupiedPoint.Occupy(this);
         yield return new WaitForSeconds(5);
@@ -65,27 +67,23 @@ public class Stalker : MonoBehaviour {
     }
 
     bool IsObjectFullyVisible() {
-        Camera mainCamera = camHolder.cam;
+        Camera playerCamera = GameManager.instance.player.camHolder.cam;
 
         // Get the viewport position of the target object's bounds
-        Vector3 targetViewportPos = mainCamera.WorldToViewportPoint(visionCapsuleRenderer.bounds.center);
+        Vector3 targetViewportPos = playerCamera.WorldToViewportPoint(visionCapsuleRenderer.bounds.center);
 
-        // Check if the target object's bounds are fully within the camera's viewport
-        if (targetViewportPos.x >= 0f && targetViewportPos.x <= 1f &&
-            targetViewportPos.y >= 0f && targetViewportPos.y <= 1f &&
-            targetViewportPos.z > 0f) {
-            // Target object is fully within the camera's view
-            return true;
-        }
-
-        // Target object is not fully within the camera's view
-        return false;
+        // Target object is fully within the camera's view
+        return targetViewportPos.x >= 0f && targetViewportPos.x <= 1f &&
+                targetViewportPos.y >= 0f && targetViewportPos.y <= 1f &&
+                targetViewportPos.z > 0f;
     }
     bool IsObjectNotBlocked () {
+        Camera playerCamera = GameManager.instance.player.camHolder.cam;
+
         //Check if something is blocking the gameObject
-        Ray ray = new Ray(camHolder.cam.transform.position, camHolder.cam.transform.forward);
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
         RaycastHit hit;
-        if (Physics.Linecast(camHolder.cam.transform.position, transform.position, out hit)) {
+        if (Physics.Linecast(playerCamera.transform.position, transform.position, out hit)) {
             if (hit.collider.gameObject == gameObject) {
                 //Draw ray for debugging purposes
                 if(GameManager.instance.debugOn) {

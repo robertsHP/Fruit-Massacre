@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour {
     public event Action OnGameWon;
     public event Action OnGameLose;
 
-    public bool debugOn = false;
-
     private GameState state;
     public GameState CurrentState {
         get => state;
@@ -28,18 +26,29 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    void Awake () {
-        if(instance == null) instance = this;
-    }
+    ///////INSPECTOR VARIABLES
+
+    [SerializeField] public uint totalFruitAmount = 6;
+    [SerializeField] public bool debugOn = false;
+    [SerializeField] public Player player;
+
+    ///////RUNTIME VARIABLES
+
+    [HideInInspector] public uint fruitKillCount = 0;
+
+    [HideInInspector] public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
+    [HideInInspector] public List<WalkPoint> walkPoints = new List<WalkPoint>();
+    [HideInInspector] public List<StalkerPoint> stalkerPoints = new List<StalkerPoint>();
+
+    [HideInInspector] public List<WalkingFruit> walkingFruit = new List<WalkingFruit>();
+    [HideInInspector] public List<Enemy> enemies = new List<Enemy>();
+
+    ////////
+
+    void Awake () => instance = this;
+
     void Start() {
         SetState(GameState.Game);
-    }
-    void OnDestroy () {
-        WalkingFruit.fruitKillCount = 0;
-        WalkingFruit.totalFruitCount = 0;
-        
-        WalkPoint.points.Clear();
-        StalkerPoint.points.Clear();
     }
     private void SetState (GameState newState) {
         state = newState;
@@ -61,9 +70,10 @@ public class GameManager : MonoBehaviour {
 
     void OnGameStart () {
         UIManager.instance.UpdateFruitCount();
+        SpawnManager.instance.SpawnWalkingFruit();
     }
 
     void Update () {
-
+        // Debug.Log(walkingFruit.Count);
     }
 }
