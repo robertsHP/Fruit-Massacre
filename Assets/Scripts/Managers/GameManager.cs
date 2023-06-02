@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour {
     [HideInInspector] public List<WalkingFruit> walkingFruit = new List<WalkingFruit>();
     [HideInInspector] public List<Enemy> enemies = new List<Enemy>();
 
+    [HideInInspector] public List<Enemy> enemiesChasingPlayer = new List<Enemy>();
+
     ////////
 
     void Awake () => instance = this;

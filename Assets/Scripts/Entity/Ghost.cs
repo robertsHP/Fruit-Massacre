@@ -70,6 +70,7 @@ public class Ghost : Enemy {
             animator.SetBool("SeePlayer", true);
             agent.speed = runSpeed;
             CurrentState = GhostState.Chase;
+            GameManager.instance.enemiesChasingPlayer.Add(this);
         } else {
             currentWalkPoint = movementAI.Patrol(agent, currentWalkPoint);
         }
@@ -79,6 +80,7 @@ public class Ghost : Enemy {
             animator.SetBool("SeePlayer", false);
             agent.speed = walkSpeed;
             CurrentState = GhostState.Patrol;
+            GameManager.instance.enemiesChasingPlayer.Remove(this);
         } else {
             movementAI.MoveTo(agent, GameManager.instance.player.transform);
         }

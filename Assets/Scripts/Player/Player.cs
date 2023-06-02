@@ -4,24 +4,30 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
-    public CharacterController controller;
-    public Renderer rend;
-    public PlayerViewBounds viewBounds;
-    public PlayerCamHolder camHolder;
+    [SerializeField] public PlayerViewBounds viewBounds;
+    [SerializeField] public PlayerCamHolder camHolder;
+    [SerializeField] public PlayerAudio charAudio;
+    [SerializeField] public Renderer rend;
+    [SerializeField] public GameObject bloodParticle;
 
-    public float speed = 4f;
-    public float gravity = -9.81f;
-    public float jumpHeight = 3f;
+    [SerializeField] public float speed = 4f;
+    [SerializeField] public float gravity = -9.81f;
+    [SerializeField] public float jumpHeight = 1f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    [SerializeField] public Transform groundCheck;
 
-    public GameObject bloodParticle;
+    private float groundDistance = 0.4f;
+    private LayerMask groundMask;
+    private CharacterController controller;
 
-    Vector3 velocity;
-    bool isGrounded;
+    private Vector3 velocity;
+    private bool isGrounded;
 
+    void Awake () {
+        controller = GetComponent<CharacterController>();
+        groundDistance = 0.4f;
+        groundMask = LayerMask.GetMask("Ground");
+    }
     // Start is called before the first frame update
     void Start() {
         GameManager.instance.OnGameWon += OnGameWon;
