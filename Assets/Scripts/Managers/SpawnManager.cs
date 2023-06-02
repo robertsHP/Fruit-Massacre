@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour {
     public void SpawnRandomGameObjectAtRandomPoint (List<GameObject> gObjList) {
         GameObject gObj = GetRandomGameObjectFromList(gObjList);
         SpawnPoint spawnPoint = GetRandomSpawnPoint();
-        
+
         if (spawnPoint != null && gObj != null) {
             if(typeof(Stalker).Name == gObj.name) {
                 if(!stalkerAlreadySpawned) {

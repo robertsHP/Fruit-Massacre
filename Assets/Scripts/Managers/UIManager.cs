@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private RectTransform loseConditionPanel;
     [SerializeField] private RectTransform winConditionPanel;
     [SerializeField] private TMPro.TextMeshProUGUI fruitCount;
-    [SerializeField] private TMPro.TextMeshProUGUI staminaAmount;
 
     public void TryAgain () {
         Debug.Log(nameof(TryAgain));
@@ -51,9 +50,4 @@ public class UIManager : MonoBehaviour {
 
         fruitCount.text = "Fruit murdered: "+fruitKillCount+" out of "+totalFruitAmount;
     }
-    // public void UpdateStamina () {
-    //     uint stamina = GameManager.instance.player.stamina;
-
-    //     staminaAmount.text = "Stamina: "+stamina;
-    // }
 }

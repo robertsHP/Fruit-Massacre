@@ -11,6 +11,7 @@ public class Point : MonoBehaviour {
         rend = GetComponent<Renderer>();
         pointLight = GetComponent<Light>();
     }
+    
     void Update () {
         rend.enabled = GameManager.instance.debugOn;
         pointLight.enabled = GameManager.instance.debugOn;

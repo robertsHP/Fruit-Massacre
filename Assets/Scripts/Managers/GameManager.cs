@@ -46,10 +46,12 @@ public class GameManager : MonoBehaviour {
 
     ////////
 
+    private bool gameOn = false;
+
     void Awake () => instance = this;
 
     void Start() {
-        SetState(GameState.Game);
+        // SetState(GameState.Game);
     }
     private void SetState (GameState newState) {
         state = newState;
@@ -75,6 +77,10 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update () {
+        if(!gameOn) {
+            gameOn = true;
+            SetState(GameState.Game);
+        }
         // Debug.Log(walkingFruit.Count);
     }
 }
