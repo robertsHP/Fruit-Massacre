@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Stalker : Enemy {
     [SerializeField] private Renderer visionCapsuleRenderer;
-    [SerializeField] private uint stareTimeSeconds = 4;
-    [SerializeField] private uint teleportPauseSeconds = 4;
+    [SerializeField] private uint stareTimeSeconds = 2;
+    [SerializeField] private uint teleportPauseSeconds = 10;
+    [SerializeField] private AudioSource stareSound;
 
     ////////////////////////////////////////////
     private float maxDistance = 10f;
@@ -106,6 +107,8 @@ public class Stalker : Enemy {
         // gameObject.GetComponent<AudioSource>().Play();
 
         // Debug.Log("STARE TIMER BEGIN");
+
+        stareSound.Play();
 
         yield return new WaitForSeconds(stareTimeSeconds);
 

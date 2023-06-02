@@ -10,13 +10,16 @@ public class Player : MonoBehaviour {
     [SerializeField] public Renderer rend;
     [SerializeField] public GameObject bloodParticle;
 
-    [SerializeField] public float speed = 4f;
+    [SerializeField] public float walkSpeed = 4f;
+    [SerializeField] public float runSpeed = 6f;
     [SerializeField] public float gravity = -9.81f;
     [SerializeField] public float jumpHeight = 1f;
 
     [SerializeField] public Transform groundCheck;
 
-    private float groundDistance = 0.4f;
+    [HideInInspector] public float speed;
+
+    private float groundDistance;
     private LayerMask groundMask;
     private CharacterController controller;
 
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour {
 
     void Awake () {
         controller = GetComponent<CharacterController>();
+
         groundDistance = 0.4f;
         groundMask = LayerMask.GetMask("Ground");
     }
@@ -74,6 +78,24 @@ public class Player : MonoBehaviour {
     private void MovementInput () {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
+        if(Input.GetKey(KeyCode.LeftShift)) {
+            speed = runSpeed;
+        } else {
+            speed = walkSpeed;
+        }
+
+        if(isGrounded) {
+            if(x != 0 || z != 0) {
+                if(speed == walkSpeed) {
+                    if(!charAudio.footStep.isPlaying)
+                        charAudio.footStep.Play();
+                } else if (speed == runSpeed) {
+                    if(!charAudio.runFootStep.isPlaying)
+                        charAudio.runFootStep.Play();
+                }
+            }
+        }
 
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * speed * Time.deltaTime);
