@@ -23,7 +23,7 @@ public class SpawnManager : MonoBehaviour {
         SpawnPoint spawnPoint = GetRandomSpawnPoint();
         
         if (spawnPoint != null && gObj != null) {
-            Instantiate(gObj, spawnPoint.transform.position, new Quaternion(0f, 0f, 0f, 0f));
+            spawnPoint.SpawnGameObject(gObj);
         }
     }
     private GameObject GetRandomGameObjectFromList (List<GameObject> gObjList) {

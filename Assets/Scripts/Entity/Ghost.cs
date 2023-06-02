@@ -35,7 +35,20 @@ public class Ghost : Enemy {
 
         CurrentState = GhostState.Patrol;
         agent.speed = walkSpeed;
+        
+        animator.SetBool("PlayerDead", false);
         animator.SetBool("SeePlayer", false);
+
+        GameManager.instance.OnGameWon += OnGameOver;
+        GameManager.instance.OnGameLose += OnGameOver;
+    }
+    void OnDestroy () {
+        GameManager.instance.OnGameWon -= OnGameOver;
+        GameManager.instance.OnGameLose -= OnGameOver;
+    }
+    void OnGameOver () {
+        animator.SetBool("PlayerDead", true);
+        movementAI.Idle(agent, currentWalkPoint);
     }
 
     // Update is called once per frame
@@ -50,8 +63,6 @@ public class Ghost : Enemy {
                     break;
                 default : break;
             }
-        } else {
-            movementAI.Idle(agent, currentWalkPoint);
         }
     }
     void PatrolState () {

@@ -7,6 +7,6 @@ public class SpawnPoint : Point {
         GameManager.instance.spawnPoints.Add(this);
     }
     public void SpawnGameObject (GameObject obj) {
-        Instantiate(obj, transform);
+        Instantiate(obj, transform.position, new Quaternion(0f, 0f, 0f, 0f));
     }
 }

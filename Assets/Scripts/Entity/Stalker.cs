@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Stalker : Enemy {
     [SerializeField] private Renderer visionCapsuleRenderer;
+    [SerializeField] private uint stareTimeSeconds = 4;
+    [SerializeField] private uint teleportPauseSeconds = 4;
 
     ////////////////////////////////////////////
     private float maxDistance = 10f;
@@ -26,10 +28,16 @@ public class Stalker : Enemy {
     // Update is called once per frame
     void Update() {
         if(GameManager.instance.CurrentState == GameState.Game) {
+            RotationTowardsPlayer();
             if(!teleportOn) 
                 StartCoroutine(TeleportCoroutine());
             StareTimer();
         }
+    }
+
+    void RotationTowardsPlayer () {
+        Player player = GameManager.instance.player;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, player.transform.rotation, 8f * Time.deltaTime);
     }
 
     IEnumerator TeleportCoroutine () {
@@ -45,7 +53,7 @@ public class Stalker : Enemy {
         occupiedPoint = stalkerPoints.ElementAt(stalkerPointIndex);
 
         occupiedPoint.Occupy(this);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(teleportPauseSeconds);
 
         teleportOn = false;
     }
@@ -99,7 +107,7 @@ public class Stalker : Enemy {
 
         // Debug.Log("STARE TIMER BEGIN");
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(stareTimeSeconds);
 
         // Debug.Log("KILL PLAYER");
         GameManager.instance.CurrentState = GameState.Lose;

@@ -13,8 +13,21 @@ public class WalkingFruit : MonoBehaviour {
 
     void Start() {
         GameManager.instance.walkingFruit.Add(this);
-        animator.SetBool("isWalking", true);
+
+        animator.SetBool("PlayerDead", false);
+
+        GameManager.instance.OnGameWon += OnGameOver;
+        GameManager.instance.OnGameLose += OnGameOver;
     }
+    void OnDestroy () {
+        GameManager.instance.OnGameWon -= OnGameOver;
+        GameManager.instance.OnGameLose -= OnGameOver;
+    }
+    void OnGameOver () {
+        animator.SetBool("PlayerDead", true);
+        movementAI.Idle(agent, currentWalkPoint);
+    }
+
     void Update() {
         if(GameManager.instance.CurrentState == GameState.Game) {
             currentWalkPoint = movementAI.Patrol(agent, currentWalkPoint);

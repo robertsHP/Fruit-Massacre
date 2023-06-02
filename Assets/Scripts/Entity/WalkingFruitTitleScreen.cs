@@ -20,12 +20,10 @@ public class WalkingFruitTitleScreen : MonoBehaviour {
             endTransform = MenuDeletePoint.points.ElementAt(0).transform;
             distance = Vector3.Distance(startTransform.position, endTransform.position);
         }
-        animator.SetBool("isWalking", true);
     }
 
     void Update() {
         if(endTransform != null) {
-            float duration = distance / speed;
             float t = speed * Time.deltaTime;
 
             transform.rotation = Quaternion.RotateTowards(startTransform.rotation, endTransform.rotation, 1f * Time.deltaTime);
