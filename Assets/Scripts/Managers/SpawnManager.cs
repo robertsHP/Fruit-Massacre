@@ -6,13 +6,15 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour {
     public static SpawnManager instance;
 
-    [SerializeField] public List<GameObject> walkingFruitTypes = new List<GameObject>();
+    [SerializeField] public List<GameObject> walkingFruit = new List<GameObject>();
     [SerializeField] public List<GameObject> enemyTypes = new List<GameObject>();
+
+    bool stalkerAlreadySpawned = false;
 
     void Awake () => instance = this;
 
     public void SpawnWalkingFruit () {
-        SpawnRandomGameObjectAtRandomPoint(walkingFruitTypes);
+        SpawnRandomGameObjectAtRandomPoint(walkingFruit);
     }
     public void SpawnEnemy () {
         SpawnRandomGameObjectAtRandomPoint(enemyTypes);
@@ -23,6 +25,14 @@ public class SpawnManager : MonoBehaviour {
         SpawnPoint spawnPoint = GetRandomSpawnPoint();
         
         if (spawnPoint != null && gObj != null) {
+            if(typeof(Stalker).Name == gObj.name) {
+                if(!stalkerAlreadySpawned) {
+                    stalkerAlreadySpawned = true;
+                } else {
+                    SpawnRandomGameObjectAtRandomPoint(gObjList);
+                    return;
+                }
+            }
             spawnPoint.SpawnGameObject(gObj);
         }
     }
