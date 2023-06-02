@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour {
 
     [HideInInspector] public uint fruitKillCount = 0;
 
-    [HideInInspector] public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
     [HideInInspector] public List<WalkPoint> walkPoints = new List<WalkPoint>();
     [HideInInspector] public List<StalkerPoint> stalkerPoints = new List<StalkerPoint>();
 

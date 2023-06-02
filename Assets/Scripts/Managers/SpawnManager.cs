@@ -9,7 +9,9 @@ public class SpawnManager : MonoBehaviour {
     [SerializeField] public List<GameObject> walkingFruit = new List<GameObject>();
     [SerializeField] public List<GameObject> enemyTypes = new List<GameObject>();
 
-    bool stalkerAlreadySpawned = false;
+    [HideInInspector] public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
+    
+    private bool stalkerAlreadySpawned = false;
 
     void Awake () => instance = this;
 
@@ -44,12 +46,23 @@ public class SpawnManager : MonoBehaviour {
         return null;
     }
     private SpawnPoint GetRandomSpawnPoint () {
-        List<SpawnPoint> spawnPoints = GameManager.instance.spawnPoints;
-
         if(spawnPoints.Count != 0) {
-            int index = (int) Random.Range(0, spawnPoints.Count);
-            return spawnPoints.ElementAt(index);
+            if(!IfAllSpawnPointsAreNotInPlayerBounds()) {
+                int index = (int) Random.Range(0, spawnPoints.Count);
+                return spawnPoints.ElementAt(index);
+            }
         }
         return null;
+    }
+    private bool IfAllSpawnPointsAreNotInPlayerBounds () {
+        PlayerViewBounds playerViewBounds = GameManager.instance.player.viewBounds;
+        bool allInBounds = true;
+
+        foreach (SpawnPoint spawnPoint in spawnPoints) {
+            if(!playerViewBounds.InBounds(spawnPoint.transform.position)) {
+                allInBounds = false;
+            }
+        }
+        return allInBounds;
     }
 }
