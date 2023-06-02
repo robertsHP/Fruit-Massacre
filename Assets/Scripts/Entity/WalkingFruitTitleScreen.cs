@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class WalkingFruitTitleScreen : MonoBehaviour {
     [SerializeField] private Animator animator;
+    [SerializeField] public AudioSource footStep;
     
     private float speed = 0.06f;
 
@@ -24,6 +25,10 @@ public class WalkingFruitTitleScreen : MonoBehaviour {
 
     void Update() {
         if(endTransform != null) {
+            if(!footStep.isPlaying) {
+                footStep.Play();
+            }
+
             float t = speed * Time.deltaTime;
 
             transform.rotation = Quaternion.RotateTowards(startTransform.rotation, endTransform.rotation, 1f * Time.deltaTime);

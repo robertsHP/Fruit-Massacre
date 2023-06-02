@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour {
     void Awake () {
         MenuDeletePoint.points.Clear();
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void Play () {
