@@ -25,6 +25,8 @@ public class Ghost : Enemy {
     [SerializeField] private VisionCone visionCone;
     [SerializeField] private MovementAI movementAI;
 
+    [SerializeField] private AudioSource patrolSound;
+
     [SerializeField] private float walkSpeed = 3;
     [SerializeField] private float runSpeed = 5;
 
@@ -73,6 +75,8 @@ public class Ghost : Enemy {
             GameManager.instance.enemiesChasingPlayer.Add(this);
         } else {
             currentWalkPoint = movementAI.Patrol(agent, currentWalkPoint);
+            if(!patrolSound.isPlaying)
+                patrolSound.Play();
         }
     }
     void ChaseState () {

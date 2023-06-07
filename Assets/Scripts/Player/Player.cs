@@ -58,7 +58,7 @@ public class Player : MonoBehaviour {
         rend.enabled = GameManager.instance.debugOn;
 
         if(GameManager.instance.CurrentState == GameState.Game) {
-            EscapeGameInput();
+            // EscapeGameInput();
             CheckGrounded();
             MovementInput();
             JumpInput();

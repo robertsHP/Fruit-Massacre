@@ -10,8 +10,6 @@ public class SpawnManager : MonoBehaviour {
     [SerializeField] public List<GameObject> enemyTypes = new List<GameObject>();
 
     [HideInInspector] public List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
-    
-    private bool stalkerAlreadySpawned = false;
 
     void Awake () => instance = this;
 
@@ -27,14 +25,6 @@ public class SpawnManager : MonoBehaviour {
         SpawnPoint spawnPoint = GetRandomSpawnPoint();
 
         if (spawnPoint != null && gObj != null) {
-            if(typeof(Stalker).Name == gObj.name) {
-                if(!stalkerAlreadySpawned) {
-                    stalkerAlreadySpawned = true;
-                } else {
-                    SpawnRandomGameObjectAtRandomPoint(gObjList);
-                    return;
-                }
-            }
             spawnPoint.SpawnGameObject(gObj);
         }
     }

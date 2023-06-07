@@ -7,7 +7,8 @@ public class Stalker : Enemy {
     [SerializeField] private Renderer visionCapsuleRenderer;
     [SerializeField] private uint stareTimeSeconds = 2;
     [SerializeField] private uint teleportPauseSeconds = 10;
-    [SerializeField] private AudioSource stareSound;
+    [SerializeField] private AudioSource stareSound1;
+    [SerializeField] private AudioSource stareSound2;
 
     ////////////////////////////////////////////
     private float maxDistance = 10f;
@@ -62,13 +63,13 @@ public class Stalker : Enemy {
     void StareTimer () {
         if(IsObjectFullyVisible() && IsObjectNotBlocked()) {
             if(!stareCoroutineOn) {
-                Debug.Log("!!Start stare coroutine");
+                // Debug.Log("!!Start stare coroutine");
                 stareCoroutine = StartCoroutine(StareTimerCoroutine());
                 stareCoroutineOn = true;
             }
         } else {
             if(stareCoroutineOn) {
-                Debug.Log("!!End stare coroutine");
+                // Debug.Log("!!End stare coroutine");
                 StopCoroutine(stareCoroutine);
                 stareCoroutineOn = false;
             }
@@ -108,7 +109,10 @@ public class Stalker : Enemy {
 
         // Debug.Log("STARE TIMER BEGIN");
 
-        stareSound.Play();
+        if(!stareSound1.isPlaying)
+            stareSound1.Play();
+        if(!stareSound2.isPlaying)
+            stareSound2.Play();
 
         yield return new WaitForSeconds(stareTimeSeconds);
 
