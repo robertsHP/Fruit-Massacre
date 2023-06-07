@@ -10,6 +10,7 @@ public class PlayerAudio : MonoBehaviour {
     [SerializeField] public AudioSource winSound;
     [SerializeField] public AudioSource footStep;
     [SerializeField] public AudioSource runFootStep;
+    [SerializeField] public AudioSource jumpSound;
 
     private float chaseAudioIncreaseAmount = 0.005f;
     private float chaseMaxVolume = 0.7f;

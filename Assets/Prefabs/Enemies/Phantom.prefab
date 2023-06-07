@@ -44,9 +44,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a459f0e46ddfc91428c40ec42319765f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.826
   m_Pitch: 1.07
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -945,7 +945,6 @@ MonoBehaviour:
   agent: {fileID: 6645362384358844754}
   visionCone: {fileID: 6645362383816279765}
   movementAI: {fileID: 6645362384358844752}
-  patrolSound: {fileID: 1996698997570767349}
   walkSpeed: 3
   runSpeed: 5
 --- !u!1 &9164389913422102707
