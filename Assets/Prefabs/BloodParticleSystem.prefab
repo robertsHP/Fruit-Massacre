@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5463226790073352534}
+  - component: {fileID: 8256443514621022729}
   m_Layer: 7
   m_Name: BloodParticleSystem
   m_TagString: Untagged
@@ -33,6 +34,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8256443514621022729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825877380127175209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5044da33c6ed00d45ac39e417b9a6710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureParticle: {fileID: 8387379946437907732}
+  standardParticle: {fileID: 7555376802587234117}
 --- !u!1 &4132538120722749836
 GameObject:
   m_ObjectHideFlags: 0

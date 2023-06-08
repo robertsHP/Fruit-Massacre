@@ -58,10 +58,18 @@ public class Player : MonoBehaviour {
         rend.enabled = GameManager.instance.debugOn;
 
         if(GameManager.instance.CurrentState == GameState.Game) {
-            // EscapeGameInput();
+            CheatInput();
+            EscapeGameInput();
             CheckGrounded();
             MovementInput();
             JumpInput();
+        }
+    }
+    private void CheatInput () {
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.V)) {
+            GameManager.instance.CurrentState = GameState.Win;
+        } else if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.B)) {
+            GameManager.instance.CurrentState = GameState.Lose;
         }
     }
     private void EscapeGameInput () {

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour {
     [SerializeField] public AudioSource ambience;
-    [SerializeField] public AudioSource ambience2;
     [SerializeField] public AudioSource chase;
     [SerializeField] public AudioSource killSound;
     [SerializeField] public AudioSource winSound;
@@ -33,10 +32,6 @@ public class PlayerAudio : MonoBehaviour {
 
     void Update () {
         if(GameManager.instance.CurrentState == GameState.Game) {
-            if(GameManager.instance.fruitKillCount > 0) {
-                if(!ambience2.isPlaying) 
-                    ambience2.Play();
-            }
             if(GameManager.instance.enemiesChasingPlayer.Count != 0) {
                 if(!chase.isPlaying) 
                     chase.Play();
