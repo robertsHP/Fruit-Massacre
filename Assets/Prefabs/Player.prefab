@@ -366,7 +366,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7042757961242671384}
   - component: {fileID: 7042757961242671385}
-  - component: {fileID: 4683185312720293801}
   m_Layer: 0
   m_Name: Chase
   m_TagString: Untagged
@@ -402,7 +401,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 29355f884ef8e8c4c8abe5e095217816, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0
-  m_Pitch: 0.89
+  m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -412,7 +411,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -485,29 +484,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!164 &4683185312720293801
-AudioReverbFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7042757961242671387}
-  m_Enabled: 1
-  m_DryLevel: 0
-  m_Room: -1000
-  m_RoomHF: -454
-  m_DecayTime: 0.4
-  m_DecayHFRatio: 0.83
-  m_ReflectionsLevel: -1646
-  m_ReverbLevel: 53
-  m_ReverbDelay: 0.003
-  m_Diffusion: 100
-  m_Density: 100
-  m_HFReference: 5000
-  m_RoomLF: 0
-  m_LFReference: 250
-  m_ReflectionsDelay: 0
-  m_ReverbPreset: 3
 --- !u!1 &7042757961267207586
 GameObject:
   m_ObjectHideFlags: 0
